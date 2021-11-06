@@ -1,0 +1,28 @@
+version: "3"
+services:
+  drone:
+    image: drone/drone:2
+    links:
+      - drone-db
+    depends_on:
+      - drone-db
+    environment:
+      - TZ=Asia/Shanghai
+      - DRONE_AGENTS_ENABLED=true 
+      - DRONE_GOGS_SERVER=${DRONE_GOGS_SERVER}
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
+      - DRONE_SERVER_HOST=${DRONE_SERVER_HOST}
+      - DRONE_SERVER_PROTO=${DRONE_SERVER_PROTO}
+      - DRONE_DATABASE_DRIVER=postgres
+      - DRONE_DATABASE_DATASOURCE=postgres://drone:${POSTGRES_PASSWORD}@drone-db:5432/drone?sslmode=disable
+  drone-db:
+    image: postgres:alpine
+    volumes:
+      - drone-db:/var/lib/postgresql/data
+    environment:
+      - TZ=Asia/Shanghai
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=drone
+      - POSTGRES_DB=drone
+volumes:
+  drone-db:
