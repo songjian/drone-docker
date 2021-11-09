@@ -6,6 +6,8 @@ services:
       - drone-db
     depends_on:
       - drone-db
+    volumes:
+      - drone-data:/data
     environment:
       - TZ=Asia/Shanghai
       - DRONE_AGENTS_ENABLED=true 
@@ -38,4 +40,5 @@ services:
       - POSTGRES_USER=drone
       - POSTGRES_DB=drone
 volumes:
+  drone-data:
   drone-db:
