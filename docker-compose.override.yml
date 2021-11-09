@@ -3,3 +3,6 @@ services:
   drone:
     ports:
       - "10080:80"
+  drone-runner:
+    ports:
+      - "10082:3000"

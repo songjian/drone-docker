@@ -1,0 +1,20 @@
+version: "3"
+services:
+  drone:
+    restart: always
+    networks:
+      default:
+        ipv4_address: 172.19.0.3
+  drone-runner:
+    restart: always
+    networks:
+      default:
+  drone-db:
+    restart: always
+    networks:
+      default:
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

@@ -15,6 +15,15 @@ services:
       - DRONE_SERVER_PROTO=${DRONE_SERVER_PROTO}
       - DRONE_DATABASE_DRIVER=postgres
       - DRONE_DATABASE_DATASOURCE=postgres://drone:${POSTGRES_PASSWORD}@drone-db:5432/drone?sslmode=disable
+  drone-runner:
+    image: drone/drone-runner-docker:1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_RPC_PROTO=${DRONE_SERVER_PROTO}
+      - DRONE_RPC_HOST=${DRONE_SERVER_HOST}
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
+      - DRONE_RUNNER_NAME=my-first-runner
   drone-db:
     image: postgres:alpine
     volumes:
