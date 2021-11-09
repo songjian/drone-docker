@@ -17,6 +17,10 @@ services:
       - DRONE_DATABASE_DATASOURCE=postgres://drone:${POSTGRES_PASSWORD}@drone-db:5432/drone?sslmode=disable
   drone-runner:
     image: drone/drone-runner-docker:1
+    links:
+      - drone
+    depends_on:
+      - drone
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
